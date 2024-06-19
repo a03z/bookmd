@@ -1,9 +1,19 @@
 'use client'
 
 import { Folders } from '@/features/folders'
-import { AddFolderModal } from '@/features/folders/view'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
+
+const AddFolderModal = dynamic(
+	() =>
+		import('@/features/folders/view').then(
+			(module) => module.AddFolderModal
+		),
+	{
+		ssr: false,
+	}
+)
 
 export const Sidebar = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)

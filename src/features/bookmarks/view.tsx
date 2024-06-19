@@ -4,11 +4,12 @@ import { list } from '@effector/reflect'
 import { $bookmarks, IBookmark, addBookmarkFx, removeBookmark } from './model'
 import Image from 'next/image'
 import { $selectedFolder } from '../folders/model'
-import { BiCheck, BiTrashAlt } from 'react-icons/bi'
+import { BiTrashAlt } from 'react-icons/bi'
 import { useUnit } from 'effector-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { $isFetching } from '../isFetching'
 
-export const Bookmarks = list({
+export const BookmarksList = list({
 	source: $bookmarks,
 	view: (
 		item: IBookmark & {
@@ -57,6 +58,20 @@ export const Bookmarks = list({
 		removeBookmark: removeBookmark,
 	},
 })
+
+export const Bookmarks = () => {
+	const [isFetching] = useUnit([$isFetching])
+
+	if (isFetching) {
+		return <div className='loader'></div>
+	} else {
+		return (
+			<div className='flex flex-wrap items-center gap-12'>
+				<BookmarksList />
+			</div>
+		)
+	}
+}
 
 export const AddBookmark = () => {
 	const [bookmarkUrl, setBookmarkUrl] = useState('')

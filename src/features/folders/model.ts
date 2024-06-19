@@ -1,5 +1,6 @@
+'use client'
+
 import { createEvent, createStore, sample } from 'effector'
-import { v4 as uuidv4 } from 'uuid'
 
 export interface IFolder {
 	name: string
@@ -7,7 +8,8 @@ export interface IFolder {
 	id: string
 }
 
-const savedFolders = localStorage.getItem('folders')
+const savedFolders =
+	typeof window !== 'undefined' ? localStorage?.getItem('folders') : '[]'
 
 export const addFolder = createEvent<IFolder>()
 export const removeFolder = createEvent<string>()
@@ -36,7 +38,8 @@ sample({
 })
 
 $folders.watch((s) => {
-	localStorage.setItem('folders', JSON.stringify(s))
+	typeof window !== 'undefined' &&
+		localStorage.setItem('folders', JSON.stringify(s))
 })
 
 $selectedFolder.on(selectFolder, (_, payload) => payload)

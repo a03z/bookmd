@@ -1,3 +1,5 @@
+'use client'
+
 import axios from 'axios'
 import { attach, createEffect, createEvent, createStore } from 'effector'
 import { v4 as uuidv4 } from 'uuid'
@@ -18,7 +20,8 @@ export interface IBookmark {
 	ogDescription?: string
 }
 
-const savedBookmarks = localStorage.getItem('bookmarks')
+const savedBookmarks =
+	typeof window !== 'undefined' && localStorage.getItem('bookmarks')
 
 // effects
 export const addBookmarkBaseFx = createEffect(
@@ -63,7 +66,8 @@ export const $bookmarks = createStore<IBookmark[]>(
 // handlers
 
 $bookmarks.watch((s) => {
-	localStorage.setItem('bookmarks', JSON.stringify(s))
+	typeof window !== 'undefined' &&
+		localStorage.setItem('bookmarks', JSON.stringify(s))
 })
 
 $bookmarks
