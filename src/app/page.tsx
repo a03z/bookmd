@@ -1,8 +1,10 @@
-import { Bookmarks, AddBookmark } from '@/features/bookmarks'
+import { AddBookmark } from '@/features/bookmarks'
+import { SaveDataLocal } from '@/features/localSave'
 import dynamic from 'next/dynamic'
 
-const SaveDataLocal = dynamic(
-	() => import('@/features/localSave').then((module) => module.SaveDataLocal),
+// prevent hydration warning when setting data to state from localStorage
+const Bookmarks = dynamic(
+	() => import('@/features/bookmarks').then((module) => module.Bookmarks),
 	{
 		ssr: false,
 	}

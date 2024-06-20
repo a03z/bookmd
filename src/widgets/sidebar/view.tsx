@@ -1,15 +1,17 @@
 'use client'
 
-import { Folders } from '@/features/folders'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 const AddFolderModal = dynamic(
-	() =>
-		import('@/features/folders/view').then(
-			(module) => module.AddFolderModal
-		),
+	() => import('@/features/folders').then((module) => module.AddFolderModal),
+	{
+		ssr: false,
+	}
+)
+const Folders = dynamic(
+	() => import('@/features/folders').then((module) => module.Folders),
 	{
 		ssr: false,
 	}
@@ -33,7 +35,7 @@ export const Sidebar = () => {
 					onClick={() => {
 						setIsModalOpen(true)
 					}}
-					className='absolute bottom-8 right-8  w-12 h-10 bg-secondary rounded-xl flex items-center justify-center'>
+					className='absolute bottom-8 right-8 w-12 h-10 bg-secondary rounded-xl flex items-center justify-center'>
 					<AiOutlinePlusCircle size={24} />
 				</button>
 			</aside>

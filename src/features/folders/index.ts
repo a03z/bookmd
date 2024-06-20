@@ -1,1 +1,1 @@
-export { Folders } from './view'
+export { Folders, AddFolderModal } from './view'

@@ -10,4 +10,3 @@ export const $isFetching = combine(
 	],
 	(pendings) => pendings.some(Boolean)
 )
-$isFetching.watch((s) => console.log(s))
