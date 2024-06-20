@@ -18,6 +18,7 @@ export interface IBookmark {
 	}[]
 	requestUrl: string
 	ogDescription?: string
+	favicon?: string
 }
 
 const savedBookmarks =

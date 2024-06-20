@@ -38,12 +38,17 @@ export const BookmarksList = list({
 					width={120}
 					height={120}
 					alt={item.ogTitle}
-					src={item.ogImage[0]?.url}
+					src={
+						item.ogImage
+							? item.ogImage[0]?.url
+							: item.favicon ||
+							  '/elementor-placeholder-image.webp'
+					}
 				/>
 				<div className='h-full w-1.5 bg-aqua'></div>
 				<div className='w-4/6 px-4 py-2'>
 					<p className='font-bold text-xl whitespace-nowrap text-ellipsis overflow-hidden'>
-						{item.ogTitle}
+						{item.ogTitle || item.requestUrl}
 					</p>
 					<hr className='w-[calc(100%+2rem)] -ml-4 h-1 my-2' />
 					<p className='text-md whitespace-nowrap text-ellipsis overflow-hidden'>
